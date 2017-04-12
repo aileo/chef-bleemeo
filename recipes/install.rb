@@ -30,10 +30,6 @@ package 'bleemeo-agent' do
   notifies :restart, 'service[bleemeo-agent]'
 end
 
-package 'bleemeo-agent-telegraf' do
-  only_if { ['centos', 'fedora'].include? node['platform'] }
-end
-
 service 'bleemeo-agent' do
   action [:start, :enable]
 end

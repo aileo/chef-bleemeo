@@ -34,9 +34,9 @@ version.
 
 > default to false
 
-## Usage
+### Usage
 
-### bleemeo::default
+#### bleemeo::default
 
 Include `bleemeo` in your node's `run_list`:
 
@@ -54,6 +54,14 @@ Include `bleemeo` in your node's `run_list`:
 }
 ```
 
-## License
+### Tests
+
+**Require vagrant and virtualbox.**
+
+Install gems (bershshelf, test-kitchen, kitchen-vagrant) : `bundler install`
+
+Run tests : `kitchen test`
+
+### License
 
 MIT
