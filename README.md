@@ -44,7 +44,7 @@ Include `bleemeo` in your node's `run_list`:
 {
   "run_list": [
     "recipe[chef-bleemeo::default]"
-  ]
+  ],
   "normal": {
     "bleemeo": {
       "account": "YOUR_ACCOUNT_ID",
