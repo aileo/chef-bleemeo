@@ -1,6 +1,15 @@
 Bleemeo-cookbook
 ===
 
+About
+---
+
+Bleemeo is a Cloud based monitoring solution. This cookbook deploys the agent
+on servers you want to monitor. Free trial is available at https://bleemeo.com/trial
+
+This cookboot is a community contribution and is not officially supported.
+
+
 Install Bleemeo agent using repositories.
 ---
 
