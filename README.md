@@ -43,6 +43,14 @@ version.
 
 > default to false
 
+#### tags (Array)
+
+`node['bleemeo']['tags']`
+
+List of tags for the agent. Your agent will be tagged with those tags on Bleemeo Cloud Platform.
+
+> default to ['chef-client']
+
 ### Usage
 
 #### bleemeo::default

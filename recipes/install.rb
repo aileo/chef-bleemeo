@@ -4,22 +4,7 @@
 #
 
 include_recipe 'bleemeo::repositories'
-
-directory '/etc/bleemeo/agent.conf.d' do
-  owner 'root'
-  group 'root'
-  mode '0755'
-  recursive true
-  action :create
-end
-
-template '/etc/bleemeo/agent.conf.d/30-install.conf' do
-  source 'config.erb'
-  owner 'root'
-  group 'root'
-  mode '0644'
-  notifies :restart, 'service[bleemeo-agent]'
-end
+include_recipe 'bleemeo::configure'
 
 package 'epel-release' do
   only_if { node['platform'] == 'centos' }
