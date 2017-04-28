@@ -49,11 +49,11 @@ version.
 
 List of tags for the agent. Your agent will be tagged with those tags on Bleemeo Cloud Platform.
 
+Only create associated configuration file if `bleemeo::configure` is ran.
+
 > default to ['chef-client']
 
 ### Usage
-
-#### bleemeo::default
 
 Include `bleemeo` in your node's `run_list`:
 
@@ -70,6 +70,61 @@ Include `bleemeo` in your node's `run_list`:
   },
 }
 ```
+
+### Recipes
+
+#### bleemeo::default / bleemeo::install
+
+Install and configure Bleemeo agent from repositories
+
+#### bleemeo::repositories
+
+Install Bleemeo agent's repositories, included in `bleemeo::install`.
+
+#### bleemeo::configure
+
+Create default Bleemeo agent's configuration folder and files, included in `bleemeo::install`.
+
+### Resources
+
+#### bleemeo_tcp_check
+
+Define a tcp custom check
+
+```ruby
+bleemeo_tcp_check 'name' do
+  id              String  # defaults to 'name' if not specified
+  port            Integer # required
+  address         String  # default to 127.0.0.1
+end
+```
+
+#### bleemeo_http_check
+
+Define a http(s) custom check
+
+```ruby
+bleemeo_http_check 'name' do
+  id              String  # defaults to 'name' if not specified
+  tls             TrueClass, FalseClass # default to false
+  port            Integer # required
+  address         String  # default to 127.0.0.1
+  path            String  # default to /
+  status_code     Integer
+end
+```
+
+#### bleemeo_nagios_check
+
+Define a nagios custom check
+
+```ruby
+bleemeo_http_check 'name' do
+  id              String  # defaults to 'name' if not specified
+  command         String  # required
+end
+```
+
 
 ### Tests
 
