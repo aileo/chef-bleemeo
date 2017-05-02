@@ -119,7 +119,7 @@ end
 Define a nagios custom check
 
 ```ruby
-bleemeo_http_check 'name' do
+bleemeo_nagios_check 'name' do
   id              String  # defaults to 'name' if not specified
   command         String  # required
 end

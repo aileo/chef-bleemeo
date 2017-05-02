@@ -12,7 +12,10 @@ platforms:
   - name: fedora-24
 
 suites:
-  - name: default
+  - name: test
     run_list:
-      - recipe[bleemeo::default]
+      - recipe[bleemeo::_test]
     attributes:
+      bleemeo:
+        tags:
+          - test
