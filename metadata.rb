@@ -4,7 +4,7 @@ maintainer_email 'lbonnargent@matlo.com'
 license          'All rights reserved'
 description      'Installs/Configures bleemeo-agent'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.3.0'
+version          '0.3.1'
 
 issues_url 'https://github.com/aileo/chef-bleemeo/issues'
 source_url 'https://github.com/aileo/chef-bleemeo'
