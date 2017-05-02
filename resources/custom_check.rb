@@ -19,7 +19,7 @@ property :check_type,
 property :port,
   Integer,
   callbacks: {
-    'should be a valid non-system port' => lambda { |p| p > 1024 && p < 65535 }
+    'should be a valid port' => lambda { |p| p > 0 && p < 65535 }
   }
 
 property :address,
