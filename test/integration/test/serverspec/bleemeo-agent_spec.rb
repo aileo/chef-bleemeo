@@ -74,4 +74,52 @@ describe 'Services configuration' do
       'check_command' => 'test'
     })) }
   end
+
+  describe file('/etc/bleemeo/agent.conf.d/99-metric-pull-http.conf') do
+    it { should exist }
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    its(:content_as_yaml) { should include(
+      'metric' => include(
+        'pull' => include(
+          'pull-http' => include({
+            'url' => 'http://127.0.0.1/pull-http',
+            'ssl_check' => false
+          })
+        )
+      )
+    )}
+  end
+
+  describe file('/etc/bleemeo/agent.conf.d/99-metric-pull-https.conf') do
+    it { should exist }
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    its(:content_as_yaml) { should include(
+      'metric' => include(
+        'pull' => include(
+          'pull-https' => include({
+            'url' => 'https://127.0.0.1/pull-https'
+          })
+        )
+      )
+    )}
+  end
+
+  describe file('/etc/bleemeo/agent.conf.d/99-metric-pull-credentials.conf') do
+    it { should exist }
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    its(:content_as_yaml) { should include(
+      'metric' => include(
+        'pull' => include(
+          'pull-credentials' => include({
+            'url' => 'https://127.0.0.1/pull-credentials',
+            'username' => 'foo',
+            'password' => 'bar'
+          })
+        )
+      )
+    )}
+  end
 end

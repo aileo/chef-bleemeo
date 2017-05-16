@@ -26,3 +26,18 @@ end
 bleemeo_nagios_check 'nagios-test' do
   command         'test'
 end
+
+bleemeo_pull_metric 'pull-http' do
+  url 'http://127.0.0.1/pull-http'
+  ssl_check false
+end
+
+bleemeo_pull_metric 'pull-https' do
+  url 'https://127.0.0.1/pull-https'
+end
+
+bleemeo_pull_metric 'pull-credentials' do
+  url 'https://127.0.0.1/pull-credentials'
+  username 'foo'
+  password 'bar'
+end
