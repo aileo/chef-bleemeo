@@ -125,6 +125,31 @@ bleemeo_nagios_check 'name' do
 end
 ```
 
+#### bleemeo_pull_metric
+
+Define a custom poll metric.
+
+```ruby
+bleemeo_pull_metric 'name' do
+  id              String  # default to 'name' if not specified
+  url             String  # required
+  item            [String, nil]
+  ssl_check       [TrueClass, FalseClass]  # default to true
+  username        [String, nil]
+  password        [String, nil]
+end
+```
+
+#### bleemeo_prometheus_endpoint
+
+Define a custom prometheus endpoint.
+
+```ruby
+bleemeo_prometheus_endpoint 'name' do
+  id              String  # default to 'name' if not specified
+  url             String  # required
+end
+```
 
 ### Tests
 
