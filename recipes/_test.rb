@@ -41,3 +41,7 @@ bleemeo_pull_metric 'pull-credentials' do
   username 'foo'
   password 'bar'
 end
+
+bleemeo_prometheus_endpoint 'local-prometheus' do
+  url 'http://127.0.0.1/prometheus/metrics'
+end

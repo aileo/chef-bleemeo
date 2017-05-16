@@ -122,4 +122,19 @@ describe 'Services configuration' do
       )
     )}
   end
+
+  describe file('/etc/bleemeo/agent.conf.d/99-metric-local-prometheus.conf') do
+    it { should exist }
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    its(:content_as_yaml) { should include(
+      'metric' => include(
+        'prometheus' => include(
+          'local-prometheus' => include({
+            'url' => 'http://127.0.0.1/prometheus/metrics'
+          })
+        )
+      )
+    )}
+  end
 end
