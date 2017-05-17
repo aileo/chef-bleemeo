@@ -24,6 +24,6 @@ file '/etc/bleemeo/agent.conf.d/99-chef-tags.conf' do
   owner 'root'
   group 'root'
   mode '0644'
-  content ({ 'tags' => node['bleemeo']['tags'].dup }).to_yaml
+  content({ 'tags' => node['bleemeo']['tags'].dup }.to_yaml)
   notifies :restart, 'service[bleemeo-agent]'
 end

@@ -16,5 +16,5 @@ package 'bleemeo-agent' do
 end
 
 service 'bleemeo-agent' do
-  action [:start, :enable]
+  action %i[start enable]
 end

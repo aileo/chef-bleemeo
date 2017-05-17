@@ -167,6 +167,12 @@ Foodcritic :
 foodcritic .
 ```
 
+Rubocop
+
+```sh
+rubocop -D
+```
+
 #### Tests
 
 **Require vagrant and virtualbox.**

@@ -9,7 +9,7 @@ case node['platform']
 when 'debian', 'ubuntu'
   package 'apt-transport-https'
 
-  ['bleemeo-agent', 'collectd', 'telegraf'].each do | repo |
+  ['bleemeo-agent', 'collectd', 'telegraf'].each do |repo|
     apt_repository repo do
       uri "#{baseurl}/#{repo}"
       components ['main']
@@ -19,7 +19,7 @@ when 'debian', 'ubuntu'
     end
   end
 when 'centos', 'fedora'
-  ['bleemeo-agent', 'telegraf'].each do | repo |
+  ['bleemeo-agent', 'telegraf'].each do |repo|
     yum_repository "#{repo}-repo" do
       description "#{repo} repository"
       baseurl "#{baseurl}/#{repo}/#{node['platform']}/$releasever/$basearch/"

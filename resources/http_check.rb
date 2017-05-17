@@ -16,7 +16,7 @@ property :status_code, [Integer, nil]
 default_action :create
 action :create do
   bleemeo_custom_check id do
-    check_type "http#{ tls ? 's' : '' }"
+    check_type "http#{tls ? 's' : ''}"
     port new_resource.port
     address new_resource.address if new_resource.address
     http_path path if path

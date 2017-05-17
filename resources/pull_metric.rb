@@ -17,7 +17,7 @@ load_current_value do
   path = "/etc/bleemeo/agent.conf.d/99-metric-#{id}.conf"
   # get some attributes from existing configuration file
   if ::File.exist?(path)
-    data = YAML.load(::File.read(path))['metric']['pull'][id]
+    data = YAML.safe_load(::File.read(path))['metric']['pull'][id]
     url data['url'] if data['url']
     item data['item'] if data['item']
     ssl_check data['ssl_check'] if data['ssl_check']
