@@ -10,6 +10,8 @@ issues_url 'https://github.com/aileo/chef-bleemeo/issues'
 source_url 'https://github.com/aileo/chef-bleemeo'
 license 'MIT'
 
+chef_version '>=12.0.0'
+
 supports 'ubuntu', '= 16.40'
 supports 'debian', '= 8.7'
 supports 'centos', '= 7.3'
