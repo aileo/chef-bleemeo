@@ -70,11 +70,8 @@ action :create do
     recursive true
   end
 
-  data = { 'service' => [{
-    'id' => id,
-    'check_type' => check_type,
-    'stack' => stack
-  }] }
+  data = { 'service' => [{ 'id' => id, 'check_type' => check_type }] }
+  data['service'][0]['stack'] = stack if stack
 
   # nagios specific attribute
   data['service'][0]['check_command'] = check_command if check_type == 'nagios'
