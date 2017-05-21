@@ -30,11 +30,7 @@ default_action :create
 action :create do
   # Create directory to prevent faillure
   directory '/etc/bleemeo/agent.conf.d' do
-    owner 'root'
-    group 'root'
-    mode '0755'
     recursive true
-    action :create
   end
 
   data = {
@@ -48,10 +44,6 @@ action :create do
 
   # Write configuration file
   file "/etc/bleemeo/agent.conf.d/99-metric-#{new_resource.id}.conf" do
-    action :create
-    owner 'root'
-    group 'root'
-    mode '0644'
     content data.to_yaml
     notifies :restart, 'service[bleemeo-agent]'
   end

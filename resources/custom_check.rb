@@ -63,11 +63,7 @@ default_action :create
 action :create do
   # Create directory to prevent faillure
   directory '/etc/bleemeo/agent.conf.d' do
-    owner 'root'
-    group 'root'
-    mode '0755'
     recursive true
-    action :create
   end
 
   data = { 'service' => [{ 'id' => id, 'check_type' => check_type }] }
