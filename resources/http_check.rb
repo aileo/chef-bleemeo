@@ -12,6 +12,7 @@ property :port, Integer, required: true
 property :address, [String, nil]
 property :path, [String, nil]
 property :status_code, [Integer, nil]
+property :stack, [String, nil]
 
 default_action :create
 action :create do
@@ -21,6 +22,7 @@ action :create do
     address new_resource.address if new_resource.address
     http_path path if path
     http_status_code status_code if status_code
+    stack new_resource.stack
   end
 end
 

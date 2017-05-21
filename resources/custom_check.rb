@@ -45,6 +45,9 @@ property  :http_status_code,
 property  :check_command,
           String
 
+property  :stack,
+          [String, nil]
+
 load_current_value do
   path = "/etc/bleemeo/agent.conf.d/99-service-#{id}.conf"
   # get some attributes from existing configuration file
@@ -56,6 +59,7 @@ load_current_value do
     http_path data['http_path'] if data['http_path']
     http_status_code data['http_status_code'] if data['http_status_code']
     check_command data['check_command'] if data['check_command']
+    stack data['stack'] if data['stack']
   end
 end
 
@@ -66,7 +70,11 @@ action :create do
     recursive true
   end
 
-  data = { 'service' => [{ 'id' => id, 'check_type' => check_type }] }
+  data = { 'service' => [{
+    'id' => id,
+    'check_type' => check_type,
+    'stack' => stack
+  }] }
 
   # nagios specific attribute
   data['service'][0]['check_command'] = check_command if check_type == 'nagios'
