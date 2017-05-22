@@ -196,4 +196,4 @@ Run tests : `kitchen test`
 
 Copyright 2017 Matlo
 
-[see LICENSE](./LICENSSE)
+[see LICENSE](./LICENSE)
