@@ -53,6 +53,16 @@ Only create associated configuration file if `bleemeo::configure` is ran.
 
 > default to ['chef-client']
 
+#### stack (String)
+
+`node['bleemeo']['stack']`
+
+Default services stack for the agent.
+
+Only create associated configuration file if `bleemeo::configure` is ran.
+
+> default to nil
+
 ### Usage
 
 Include `bleemeo` in your node's `run_list`:
@@ -93,9 +103,10 @@ Define a tcp custom check
 
 ```ruby
 bleemeo_tcp_check 'name' do
-  id              String  # defaults to 'name' if not specified
+  id              String  # default to 'name' if not specified
   port            Integer # required
   address         String  # default to 127.0.0.1
+  stack           String  # default to nil
 end
 ```
 
@@ -105,12 +116,13 @@ Define a http(s) custom check
 
 ```ruby
 bleemeo_http_check 'name' do
-  id              String  # defaults to 'name' if not specified
+  id              String  # default to 'name' if not specified
   tls             TrueClass, FalseClass # default to false
   port            Integer # required
   address         String  # default to 127.0.0.1
   path            String  # default to /
   status_code     Integer
+  stack           String  # default to nil
 end
 ```
 
@@ -120,8 +132,9 @@ Define a nagios custom check
 
 ```ruby
 bleemeo_nagios_check 'name' do
-  id              String  # defaults to 'name' if not specified
+  id              String  # default to 'name' if not specified
   command         String  # required
+  stack           String  # default to nil
 end
 ```
 

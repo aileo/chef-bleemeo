@@ -12,7 +12,7 @@ license 'MIT'
 
 chef_version '>=12.0.0'
 
-supports 'ubuntu', '= 16.40'
-supports 'debian', '= 8.7'
-supports 'centos', '= 7.3'
-supports 'fedora', '= 24.0'
+supports 'ubuntu', '=16.04'
+supports 'debian', '=8.7'
+supports 'centos', '=7.3'
+supports 'fedora', '=24.0'
