@@ -24,7 +24,7 @@ action :create do
 end
 
 action :delete do
-  bleemeo_custom_check do
+  bleemeo_custom_check id do
     action :delete
   end
 end
