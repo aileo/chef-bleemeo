@@ -71,16 +71,14 @@ action :create do
   end
 
   data = { 'service' => [{ 'id' => id, 'check_type' => check_type }] }
+
+  # common attributes
+  data['service'][0]['port'] = port if port
+  data['service'][0]['address'] = address if address
   data['service'][0]['stack'] = stack if stack
 
   # nagios specific attribute
   data['service'][0]['check_command'] = check_command if check_type == 'nagios'
-
-  # all except nagios attributes
-  unless check_type == 'nagios'
-    data['service'][0]['port'] = port
-    data['service'][0]['address'] = address
-  end
 
   # http(s) specific attributes
   if ['http', 'https'].include? check_type

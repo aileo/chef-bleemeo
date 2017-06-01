@@ -8,6 +8,8 @@ resource_name :bleemeo_nagios_check
 
 property :id, String, name_property: true
 property :command, String, required: true
+property :port, [Integer, nil]
+property :address, [String, nil]
 property :stack, [String, nil]
 
 default_action :create
@@ -15,6 +17,8 @@ action :create do
   bleemeo_custom_check id do
     check_type 'nagios'
     check_command command
+    port new_resource.port if new_resource.port
+    address new_resource.address if new_resource.address
     stack new_resource.stack
   end
 end
