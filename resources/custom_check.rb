@@ -30,13 +30,11 @@ property  :port,
           }
 
 property  :address,
-          String,
-          default: '127.0.0.1',
+          [String, nil],
           regex: [/^(\d{1,3}\.){3}\d{1,3}$/]
 
 property  :http_path,
-          String,
-          default: '/',
+          [String, nil],
           regex: [%r{^/}]
 
 property  :http_status_code,
@@ -87,7 +85,7 @@ action :create do
 
   # http(s) specific attributes
   if ['http', 'https'].include? check_type
-    data['service'][0]['http_path'] = http_path
+    data['service'][0]['http_path'] = http_path if http_path
     # Status code could be unset
     if property_is_set?(:http_status_code)
       data['service'][0]['http_status_code'] = http_status_code

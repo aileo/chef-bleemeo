@@ -34,8 +34,7 @@ describe 'Services configuration' do
         'service' => include(
           'id' => 'tcp-test',
           'check_type' => 'tcp',
-          'port' => 3000,
-          'address' => '127.0.0.1'
+          'port' => 3000
         )
       )
     end
@@ -50,9 +49,7 @@ describe 'Services configuration' do
         'service' => include(
           'id' => 'http-test',
           'check_type' => 'http',
-          'port' => 3001,
-          'address' => '127.0.0.1',
-          'http_path' => '/'
+          'port' => 3001
         )
       )
     end
@@ -68,9 +65,7 @@ describe 'Services configuration' do
           'id' => 'https-test',
           'check_type' => 'https',
           'port' => 3002,
-          'address' => '127.0.0.1',
-          'http_status_code' => 200,
-          'http_path' => '/'
+          'http_status_code' => 200
         )
       )
     end
