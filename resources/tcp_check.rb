@@ -7,6 +7,7 @@
 resource_name :bleemeo_tcp_check
 
 property :id, String, name_property: true
+property :file_prefix, [Integer, nil]
 property :port, Integer, required: true
 property :address, [String, nil]
 property :stack, [String, nil]
@@ -18,6 +19,7 @@ action :create do
     port new_resource.port
     address new_resource.address if new_resource.address
     stack new_resource.stack
+    file_prefix new_resource.file_prefix if new_resource.file_prefix
   end
 end
 

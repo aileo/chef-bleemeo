@@ -6,7 +6,16 @@
 
 resource_name :bleemeo_pull_metric
 
-property :id, String, name_property: true, identity: true
+property  :id,
+          String,
+          name_property: true,
+          identity: true
+
+property  :file_prefix,
+          Integer,
+          default: node['bleemeo']['file_prefix']['metric'],
+          identity: true
+
 property :url, String, required: true
 property :item, [String, nil]
 property :ssl_check, [TrueClass, FalseClass], default: true
@@ -14,7 +23,7 @@ property :username, [String, nil]
 property :password, [String, nil]
 
 load_current_value do
-  path = "/etc/bleemeo/agent.conf.d/99-metric-#{id}.conf"
+  path = "/etc/bleemeo/agent.conf.d/#{file_prefix}-metric-#{id}.conf"
   # get some attributes from existing configuration file
   if ::File.exist?(path)
     data = YAML.safe_load(::File.read(path))['metric']['pull'][id]
@@ -43,14 +52,14 @@ action :create do
   data['metric']['pull'][id]['password'] = password if password
 
   # Write configuration file
-  file "/etc/bleemeo/agent.conf.d/99-metric-#{new_resource.id}.conf" do
+  file "/etc/bleemeo/agent.conf.d/#{file_prefix}-metric-#{id}.conf" do
     content data.to_yaml
     notifies :restart, 'service[bleemeo-agent]'
   end
 end
 
 action :delete do
-  file "/etc/bleemeo/agent.conf.d/99-metric-#{new_resource.id}.conf" do
+  file "/etc/bleemeo/agent.conf.d/#{file_prefix}-metric-#{id}.conf" do
     action :delete
     notifies :restart, 'service[bleemeo-agent]'
   end

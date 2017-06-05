@@ -13,6 +13,7 @@ property :address, [String, nil]
 property :path, [String, nil]
 property :status_code, [Integer, nil]
 property :stack, [String, nil]
+property :file_prefix, [Integer, nil]
 
 default_action :create
 action :create do
@@ -23,6 +24,7 @@ action :create do
     http_path path if path
     http_status_code status_code if status_code
     stack new_resource.stack
+    file_prefix new_resource.file_prefix if new_resource.file_prefix
   end
 end
 

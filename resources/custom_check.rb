@@ -11,6 +11,11 @@ property  :id,
           name_property: true,
           identity: true
 
+property  :file_prefix,
+          Integer,
+          default: node['bleemeo']['file_prefix']['service'],
+          identity: true
+
 property  :check_type,
           String,
           default: 'tcp',
@@ -49,7 +54,7 @@ property  :stack,
           [String, nil]
 
 load_current_value do
-  path = "/etc/bleemeo/agent.conf.d/99-service-#{id}.conf"
+  path = "/etc/bleemeo/agent.conf.d/#{file_prefix}-service-#{id}.conf"
   # get some attributes from existing configuration file
   if ::File.exist?(path)
     data = YAML.safe_load(::File.read(path))['service'][0]
@@ -90,7 +95,7 @@ action :create do
   end
 
   # Write configuration file
-  file "/etc/bleemeo/agent.conf.d/99-service-#{new_resource.id}.conf" do
+  file "/etc/bleemeo/agent.conf.d/#{file_prefix}-service-#{id}.conf" do
     action :create
     content data.to_yaml
     notifies :restart, 'service[bleemeo-agent]'
@@ -98,7 +103,7 @@ action :create do
 end
 
 action :delete do
-  file "/etc/bleemeo/agent.conf.d/99-service-#{new_resource.id}.conf" do
+  file "/etc/bleemeo/agent.conf.d/#{file_prefix}-service-#{id}.conf" do
     action :delete
     notifies :restart, 'service[bleemeo-agent]'
   end

@@ -25,7 +25,7 @@ describe 'Tag configuration' do
 end
 
 describe 'Services configuration' do
-  describe file('/etc/bleemeo/agent.conf.d/99-service-tcp-test.conf') do
+  describe file('/etc/bleemeo/agent.conf.d/90-service-tcp-test.conf') do
     it { should exist }
     it { should be_file }
     it { should be_owned_by 'root' }
@@ -41,7 +41,7 @@ describe 'Services configuration' do
     end
   end
 
-  describe file('/etc/bleemeo/agent.conf.d/99-service-http-test.conf') do
+  describe file('/etc/bleemeo/agent.conf.d/90-service-http-test.conf') do
     it { should exist }
     it { should be_file }
     it { should be_owned_by 'root' }
@@ -58,7 +58,7 @@ describe 'Services configuration' do
     end
   end
 
-  describe file('/etc/bleemeo/agent.conf.d/99-service-https-test.conf') do
+  describe file('/etc/bleemeo/agent.conf.d/90-service-https-test.conf') do
     it { should exist }
     it { should be_file }
     it { should be_owned_by 'root' }
@@ -76,7 +76,7 @@ describe 'Services configuration' do
     end
   end
 
-  describe file('/etc/bleemeo/agent.conf.d/99-service-nagios-test.conf') do
+  describe file('/etc/bleemeo/agent.conf.d/90-service-nagios-test.conf') do
     it { should exist }
     it { should be_file }
     it { should be_owned_by 'root' }
@@ -93,7 +93,7 @@ describe 'Services configuration' do
 end
 
 describe 'Metric definition' do
-  describe file('/etc/bleemeo/agent.conf.d/99-metric-pull-http.conf') do
+  describe file('/etc/bleemeo/agent.conf.d/91-metric-pull-http.conf') do
     it { should exist }
     it { should be_file }
     it { should be_owned_by 'root' }
@@ -111,7 +111,7 @@ describe 'Metric definition' do
     end
   end
 
-  describe file('/etc/bleemeo/agent.conf.d/99-metric-pull-https.conf') do
+  describe file('/etc/bleemeo/agent.conf.d/91-metric-pull-https.conf') do
     it { should exist }
     it { should be_file }
     it { should be_owned_by 'root' }
@@ -128,7 +128,7 @@ describe 'Metric definition' do
     end
   end
 
-  describe file('/etc/bleemeo/agent.conf.d/99-metric-pull-credentials.conf') do
+  describe file('/etc/bleemeo/agent.conf.d/91-metric-pull-credentials.conf') do
     it { should exist }
     it { should be_file }
     it { should be_owned_by 'root' }
@@ -147,7 +147,7 @@ describe 'Metric definition' do
     end
   end
 
-  describe file('/etc/bleemeo/agent.conf.d/99-metric-local-prometheus.conf') do
+  describe file('/etc/bleemeo/agent.conf.d/91-metric-local-prometheus.conf') do
     it { should exist }
     it { should be_file }
     it { should be_owned_by 'root' }
