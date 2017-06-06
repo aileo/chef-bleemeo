@@ -159,3 +159,23 @@ describe 'Metric definition' do
     end
   end
 end
+
+describe 'Threshold definition' do
+  describe file('/etc/bleemeo/agent.conf.d/92-thresholds-fake_metric.conf') do
+    it { should exist }
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    its(:content_as_yaml) do
+      should include(
+        'thresholds' => include(
+          'fake_metric' => include(
+            'low_critical' => 0,
+            'low_warning' => 2,
+            'high_warning' => 90,
+            'high_critical' => 95
+          )
+        )
+      )
+    end
+  end
+end

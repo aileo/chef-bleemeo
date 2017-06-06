@@ -45,3 +45,10 @@ end
 bleemeo_prometheus_endpoint 'local-prometheus' do
   url 'http://127.0.0.1/prometheus/metrics'
 end
+
+bleemeo_threshold 'fake_metric' do
+  low_critical 0
+  low_warning 2
+  high_warning 90
+  high_critical 95
+end
