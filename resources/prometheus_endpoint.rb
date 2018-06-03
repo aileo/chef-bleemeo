@@ -35,17 +35,29 @@ action :create do
     recursive true
   end
 
-  data = { 'metric' => { 'prometheus' => { id => { 'url' => url } } } }
-
   # Write configuration file
-  file "/etc/bleemeo/agent.conf.d/#{file_prefix}-metric-#{id}.conf" do
-    content data.to_yaml
+  file [
+    'etc', 'bleemeo', 'agent.conf.d',
+    "#{new_resource.file_prefix}-metric-#{new_resource.id}.conf"
+  ].join('/') do
+    content({
+      'metric' => {
+        'prometheus' => {
+          new_resource.id => {
+            'url' => new_resource.url
+          }
+        }
+      }
+    }.to_yaml)
     notifies :restart, 'service[bleemeo-agent]'
   end
 end
 
 action :delete do
-  file "/etc/bleemeo/agent.conf.d/#{file_prefix}-metric-#{id}.conf" do
+  file [
+    'etc', 'bleemeo', 'agent.conf.d',
+    "#{new_resource.file_prefix}-metric-#{new_resource.id}.conf"
+  ].join('/') do
     action :delete
     notifies :restart, 'service[bleemeo-agent]'
   end

@@ -51,58 +51,36 @@ property  :check_command,
 property  :stack,
           [String, nil]
 
-load_current_value do
-  path = "/etc/bleemeo/agent.conf.d/#{file_prefix}-service-#{id}.conf"
-  # get some attributes from existing configuration file
-  if ::File.exist?(path)
-    data = YAML.safe_load(::File.read(path))['service'][0]
-    check_type data['check_type'] if data['check_type']
-    port data['port'] if data['port']
-    address data['address'] if data['address']
-    http_path data['http_path'] if data['http_path']
-    http_status_code data['http_status_code'] if data['http_status_code']
-    check_command data['check_command'] if data['check_command']
-    stack data['stack'] if data['stack']
-  end
-end
-
 default_action :create
 action :create do
-  # Create directory to prevent faillure
-  directory '/etc/bleemeo/agent.conf.d' do
-    recursive true
-  end
-
-  data = { 'service' => [{ 'id' => id, 'check_type' => check_type }] }
+  data = { 'check_type' => check_type }
 
   # common attributes
-  data['service'][0]['port'] = port if port
-  data['service'][0]['address'] = address if address
-  data['service'][0]['stack'] = stack if stack
+  data['port'] = port if port
+  data['address'] = address if address
+  data['stack'] = stack if stack
 
   # nagios specific attribute
-  data['service'][0]['check_command'] = check_command if check_type == 'nagios'
+  data['check_command'] = check_command if check_type == 'nagios'
 
   # http(s) specific attributes
   if ['http', 'https'].include? check_type
-    data['service'][0]['http_path'] = http_path if http_path
+    data['http_path'] = http_path if http_path
     # Status code could be unset
     if property_is_set?(:http_status_code)
-      data['service'][0]['http_status_code'] = http_status_code
+      data['http_status_code'] = http_status_code
     end
   end
 
-  # Write configuration file
-  file "/etc/bleemeo/agent.conf.d/#{file_prefix}-service-#{id}.conf" do
-    action :create
-    content data.to_yaml
-    notifies :restart, 'service[bleemeo-agent]'
+  bleemeo_service new_resource.id do
+    file_prefix new_resource.file_prefix if new_resource.file_prefix
+    parameters data
   end
 end
 
 action :delete do
-  file "/etc/bleemeo/agent.conf.d/#{file_prefix}-service-#{id}.conf" do
+  bleemeo_service new_resource.id do
+    file_prefix new_resource.file_prefix if new_resource.file_prefix
     action :delete
-    notifies :restart, 'service[bleemeo-agent]'
   end
 end
