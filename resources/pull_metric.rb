@@ -42,24 +42,28 @@ action :create do
     recursive true
   end
 
-  data = {
-    'metric' => { 'pull' => { id => { 'url' => url } } }
-  }
+  data = { 'url' => new_resource.url }
 
-  data['metric']['pull'][id]['ssl_check'] = ssl_check unless ssl_check
-  data['metric']['pull'][id]['item'] = item if item
-  data['metric']['pull'][id]['username'] = username if username
-  data['metric']['pull'][id]['password'] = password if password
+  data['ssl_check'] = new_resource.ssl_check unless new_resource.ssl_check
+  data['item'] = new_resource.item if new_resource.item
+  data['username'] = new_resource.username if new_resource.username
+  data['password'] = new_resource.password if new_resource.password
 
   # Write configuration file
-  file "/etc/bleemeo/agent.conf.d/#{file_prefix}-metric-#{id}.conf" do
-    content data.to_yaml
+  file [
+    '', 'etc', 'bleemeo', 'agent.conf.d',
+    "#{new_resource.file_prefix}-metric-#{new_resource.id}.conf"
+  ].join('/') do
+    content({ 'metric' => { 'pull' => { new_resource.id => data } } }.to_yaml)
     notifies :restart, 'service[bleemeo-agent]'
   end
 end
 
 action :delete do
-  file "/etc/bleemeo/agent.conf.d/#{file_prefix}-metric-#{id}.conf" do
+  file [
+    '', 'etc', 'bleemeo', 'agent.conf.d',
+    "#{new_resource.file_prefix}-metric-#{new_resource.id}.conf"
+  ].join('/') do
     action :delete
     notifies :restart, 'service[bleemeo-agent]'
   end

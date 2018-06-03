@@ -40,25 +40,28 @@ action :create do
     recursive true
   end
 
-  if low_critical || low_warning || high_warning || high_critical
-    data = { 'thresholds' => {} }
-    data['thresholds'][metric] = {}
-    data['thresholds'][metric]['low_critical'] = low_critical if low_critical
-    data['thresholds'][metric]['low_warning'] = low_warning if low_warning
-    data['thresholds'][metric]['high_warning'] = high_warning if high_warning
-    data['thresholds'][metric]['high_critical'] = high_critical if high_critical
+  th = {}
+  th['low_critical'] = new_resource.low_critical if new_resource.low_critical
+  th['low_warning'] = new_resource.low_warning if new_resource.low_warning
+  th['high_warning'] = new_resource.high_warning if new_resource.high_warning
+  th['high_critical'] = new_resource.high_critical if new_resource.high_critical
 
-    # Write configuration file
-    file "/etc/bleemeo/agent.conf.d/#{file_prefix}-thresholds-#{metric}.conf" do
-      action :create
-      content data.to_yaml
-      notifies :restart, 'service[bleemeo-agent]'
-    end
+  # Write configuration file
+  file [
+    'etc', 'bleemeo', 'agent.conf.d',
+    "#{new_resource.file_prefix}-thresholds-#{new_resource.metric}.conf"
+  ].join('/') do
+    action :create
+    content({ 'thresholds' => { new_resource.metric => th } }.to_yaml)
+    notifies :restart, 'service[bleemeo-agent]'
   end
 end
 
 action :delete do
-  file "/etc/bleemeo/agent.conf.d/#{file_prefix}-thresholds-#{metric}.conf" do
+  file [
+    'etc', 'bleemeo', 'agent.conf.d',
+    "#{new_resource.file_prefix}-thresholds-#{new_resource.metric}.conf"
+  ].join('/') do
     action :delete
     notifies :restart, 'service[bleemeo-agent]'
   end
