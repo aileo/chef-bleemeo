@@ -63,6 +63,38 @@ Only create associated configuration file if `bleemeo::configure` is ran.
 
 > default to nil
 
+#### file_prefix/service (String)
+
+`node['bleemeo']['file_prefix']['service']`
+
+Default services configuration files prefix.
+
+> default to 90
+
+#### file_prefix/metric (String)
+
+`node['bleemeo']['file_prefix']['metric']`
+
+Default metrics configuration files prefix.
+
+> default to 91
+
+#### file_prefix/thresholds (String)
+
+`node['bleemeo']['file_prefix']['thresholds']`
+
+Default thresholds configuration files prefix.
+
+> default to 92
+
+#### file_prefix/tags (String)
+
+`node['bleemeo']['file_prefix']['tags']`
+
+Default tags configuration files prefix.
+
+> default to 99
+
 ### Usage
 
 Include `bleemeo` in your node's `run_list`:
@@ -104,6 +136,7 @@ Define a tcp custom check
 ```ruby
 bleemeo_tcp_check 'name' do
   id              String  # default to 'name' if not specified
+  file_prefix     Integer # configuration file prefix
   port            Integer # required
   address         String  # default to 127.0.0.1
   stack           String  # default to nil
@@ -117,7 +150,8 @@ Define a http(s) custom check
 ```ruby
 bleemeo_http_check 'name' do
   id              String  # default to 'name' if not specified
-  tls             TrueClass, FalseClass # default to false
+  file_prefix     Integer # configuration file prefix
+  tls             [TrueClass, FalseClass] # default to false
   port            Integer # required
   address         String  # default to 127.0.0.1
   path            String  # default to /
@@ -133,6 +167,7 @@ Define a nagios custom check
 ```ruby
 bleemeo_nagios_check 'name' do
   id              String  # default to 'name' if not specified
+  file_prefix     Integer # configuration file prefix
   command         String  # required
   stack           String  # default to nil
 end
@@ -145,6 +180,7 @@ Define a custom poll metric.
 ```ruby
 bleemeo_pull_metric 'name' do
   id              String  # default to 'name' if not specified
+  file_prefix     Integer # configuration file prefix
   url             String  # required
   item            [String, nil]
   ssl_check       [TrueClass, FalseClass]  # default to true
@@ -160,7 +196,39 @@ Define a custom prometheus endpoint.
 ```ruby
 bleemeo_prometheus_endpoint 'name' do
   id              String  # default to 'name' if not specified
+  file_prefix     Integer # configuration file prefix
   url             String  # required
+end
+```
+
+#### bleemeo_threshold
+
+Define default threshold for specified metric,
+overwritten by Bleemeo cloud platform.
+
+```ruby
+bleemeo_prometheus_endpoint 'name' do
+  metric          String  # default to 'name' if not specified
+  file_prefix     Integer # configuration file prefix
+  low_critical    Integer
+  low_warning     Integer
+  high_warning    Integer
+  high_critical   Integer
+end
+```
+
+#### bleemeo_postgresql
+
+Set prostgresql monitoring configuration
+
+```ruby
+bleemeo_postgresql 'name' do
+  file_prefix     Integer # configuration file prefix
+  username        String  # required
+  password        String  # required
+  port            Integer # default to 5432
+  address         String  # default to 127.0.0.1
+  stack           String  # default to nil
 end
 ```
 
